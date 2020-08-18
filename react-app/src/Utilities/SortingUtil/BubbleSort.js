@@ -18,6 +18,5 @@ export default function (array) {
             steps.push(step);
         }
     }
-    // console.log(steps);
     return { newArray, steps };
 }
