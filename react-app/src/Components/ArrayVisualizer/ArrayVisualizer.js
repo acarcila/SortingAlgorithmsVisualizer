@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Styles from './ArrayVisualizer.module.sass';
 import ArrayVisualizerElement from '../ArrayVisualizerElement/ArrayVisualizerElement';
 import bubbleSort from '../../Utilities/SortingUtil/BubbleSort';
+import mergeSort from '../../Utilities/SortingUtil/MergeSort';
+import { arrayMove } from '../../Utilities/ArrayUtil/ArrayUtil';
 
 const generateArray = (lenght, range) => {
     return Array.from(Array(lenght)).map(e => Math.round(Math.random() * (range.max - range.min) + range.min));
 }
 
-const nextStep = ({ elements, isChange }, array) => {
+const nextStep = ({ elements }, array) => {
     var newArray = array.slice(0);
-    if (isChange) {
-        const temp = newArray[elements[0]];
-        newArray[elements[0]] = newArray[elements[1]];
-        newArray[elements[1]] = temp;
-    }
+    elements.forEach(element => {
+        newArray = arrayMove(newArray, element.index, element.newIndex);
+    });
 
     return newArray;
 }
@@ -21,7 +21,7 @@ const nextStep = ({ elements, isChange }, array) => {
 const createElements = (array, currentStep, range, lenght) => {
     const arrayElements = array.map((e, i) => {
         return (
-            <ArrayVisualizerElement isActive={currentStep.elements.includes(i)} height={(e / range.max) * 100} width={(1 / lenght) * 100} key={i} />
+            <ArrayVisualizerElement isActive={currentStep.elements.find(e => e.index === i)} height={(e / range.max) * 100} width={(1 / lenght) * 100} key={i} />
         );
     });
     return arrayElements;
@@ -41,8 +41,12 @@ function ArrayVisualizer({ lenght, range }) {
     useEffect(() => {
         const randomArray = generateArray(lenght, range);
         setArray(randomArray);
+        console.log("array", randomArray);
+        // const merge = mergeSort(randomArray, 0, (randomArray.length - 1));
+        // const sort = randomArray.sort((a, b) => a - b)
+        // console.log("merge", merge);
 
-        const bubbleSorted = bubbleSort(randomArray);
+        const bubbleSorted = mergeSort(randomArray, 0, (randomArray.length - 1));
         setFinalArray(bubbleSorted.newArray);
         setSteps(bubbleSorted.steps);
     }, []);
@@ -59,9 +63,10 @@ function ArrayVisualizer({ lenght, range }) {
             const newArray = nextStep(step, oldArray)
             setArray(newArray);
             oldArray = newArray;
-            await delay(20);
+            await delay(10);
         }
         setCurrentStep({ elements: [], isChange: false });
+        setSteps([]);
     }
 
     return (
