@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ArrayVisualizer from './Components/ArrayVisualizer/ArrayVisualizer';
+import ArraySortingController from './Components/ArraySortingController/ArraySortingController';
 
 function App() {
   return (
     <div className="App">
-      <ArrayVisualizer lenght={100} range={{ min: 5, max: 1000 }} />
+      <ArraySortingController lenght={100} range={{ min: 5, max: 1000 }} />
     </div>
   );
 }
