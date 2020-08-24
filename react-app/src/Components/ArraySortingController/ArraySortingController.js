@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styles from './ArraySortingController.module.sass';
 import ArrayVisualizer from '../ArrayVisualizer/ArrayVisualizer';
-import ArrayVisualizerElement from '../ArrayVisualizerElement/ArrayVisualizerElement';
 import bubbleSort from '../../Utilities/SortingUtil/BubbleSort';
 import mergeSort from '../../Utilities/SortingUtil/MergeSort';
 import { arrayMove } from '../../Utilities/ArrayUtil/ArrayUtil';
@@ -46,7 +45,7 @@ function ArraySortingController({ lenght, range }) {
     useEffect(() => {
         const randomArray = generateArray(lenght, range);
         setArray(randomArray);
-        console.log("array", randomArray);
+        // console.log("array", randomArray);
         // const merge = mergeSort(randomArray, 0, (randomArray.length - 1));
         // const sort = randomArray.sort((a, b) => a - b)
         // console.log("merge", merge);
