@@ -2,7 +2,6 @@ import React from "react";
 import Styles from "./ArrayVisualizerElement.module.sass";
 
 function ArrayVisualizerElement({ isActive, height, width }) {
-    // console.log(height);
   return (
     <div
       className={`${Styles["array-visualizer__element"]} ${

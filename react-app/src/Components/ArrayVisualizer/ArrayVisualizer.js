@@ -16,8 +16,6 @@ const createElements = (array, lenght, range) => {
     return arrayElements;
 };
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
 function ArrayVisualizer({ startingArray, lenght, range }) {
     const arrayElements = createElements(startingArray, lenght, range);
     return <div className={Styles["array-visualizer"]}>{arrayElements}</div>;
