@@ -16,9 +16,6 @@ export default function sort(array, left, right) {
         const mergedInfo = merge(newArray, left, middle, right);
         newArray = mergedInfo.newArray
         steps = steps.concat(mergedInfo.steps);
-
-        console.log(mergedInfo);
-        console.log(steps);
     }
     return { newArray, steps };
 }
@@ -36,7 +33,7 @@ function merge(array, left, middle, right) {
         var step = {
             elements: []
         }
-        if (newArray[j] < newArray[i]) {
+        if (newArray[j].value < newArray[i].value) {
             step.elements.push({ index: j, newIndex: i });
             step.elements.push({ index: i+1, newIndex: i+1 });
             newArray = arrayMove(newArray, j, i);

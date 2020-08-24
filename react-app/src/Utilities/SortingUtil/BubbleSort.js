@@ -7,7 +7,7 @@ export default function (array) {
                 elements: []
             }
 
-            if (newArray[j] > newArray[j + 1]) {
+            if (newArray[j].value > newArray[j + 1].value) {
                 step.elements.push({ index: j, newIndex: j + 1 });
                 step.elements.push({ index: j + 1, newIndex: j + 1 });
                 var temp = newArray[j];
