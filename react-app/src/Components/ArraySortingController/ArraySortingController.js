@@ -3,6 +3,7 @@ import Styles from './ArraySortingController.module.sass';
 import ArrayVisualizer from '../ArrayVisualizer/ArrayVisualizer';
 import bubbleSort from '../../Utilities/SortingUtil/BubbleSort';
 import mergeSort from '../../Utilities/SortingUtil/MergeSort';
+import quickSort from '../../Utilities/SortingUtil/QuickSort';
 import { arrayMove } from '../../Utilities/ArrayUtil/ArrayUtil';
 
 const generateArray = (lenght, range) => {
@@ -24,7 +25,7 @@ const nextStep = ({ elements }, array) => {
     return newArray;
 }
 
-const deactivate = ({elements},array) => {
+const deactivate = ({ elements }, array) => {
     var newArray = array.slice(0);
     elements.forEach(element => {
         newArray[element.newIndex].isActive = false
@@ -39,6 +40,7 @@ function ArraySortingController({ lenght, range }) {
 
     const [array, setArray] = useState([]);
     const [steps, setSteps] = useState([]);
+    const [sorting, setSorting] = useState(false);
     const [currentStep, setCurrentStep] = useState({ elements: [], isChange: false });
     const [finalArray, setFinalArray] = useState([]);
 
@@ -50,29 +52,33 @@ function ArraySortingController({ lenght, range }) {
         // const sort = randomArray.sort((a, b) => a - b)
         // console.log("merge", merge);
 
-        const sortedArray = mergeSort(randomArray, 0, (randomArray.length - 1));
         // const sortedArray = bubbleSort(randomArray);
+        const sortedArray = mergeSort(randomArray, 0, (randomArray.length - 1));
+        // const sortedArray = quickSort(randomArray, 0, (randomArray.length - 1));
+        console.log("sorted", sortedArray);
         setFinalArray(sortedArray.newArray);
         setSteps(sortedArray.steps);
     }, []);
 
     const handleStartAnimation = async () => {
-        console.log("start");
-        var oldArray = array;
-        console.log(steps, array);
-        for (const step of steps) {
-            setCurrentStep(step);
-            var newArray = nextStep(step, oldArray)
-            setArray(newArray);
+        if (!sorting) {
+            setSorting(true);
+            var oldArray = array;
+            console.log(steps, array);
+            for (const step of steps) {
+                setCurrentStep(step);
+                var newArray = nextStep(step, oldArray)
+                setArray(newArray);
 
-            await delay(10);
+                await delay(0);
 
-            newArray = deactivate(step, newArray);
-            setArray(newArray)
-            oldArray = newArray;
+                newArray = deactivate(step, newArray);
+                setArray(newArray)
+                oldArray = newArray;
+            }
+            setCurrentStep({ elements: [], isChange: false });
+            setSteps([]);
         }
-        setCurrentStep({ elements: [], isChange: false });
-        setSteps([]);
     }
 
     return (
