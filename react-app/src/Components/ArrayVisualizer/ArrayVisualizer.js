@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Styles from "./ArrayVisualizer.module.sass";
 import ArrayVisualizerElement from "../ArrayVisualizerElement/ArrayVisualizerElement";
 
