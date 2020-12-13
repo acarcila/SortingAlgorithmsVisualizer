@@ -1,8 +1,8 @@
-export default function (array) {
+export default function (array, left, right) {
     var newArray = array.slice(0);      // prevents pass by reference
     var steps = [];
-    for (var i = 0; i < newArray.length - 1; i++) {
-        for (var j = 0; j < newArray.length - i - 1; j++) {
+    for (var i = left; i < right; i++) {
+        for (var j = left; j < right - i; j++) {
             var step = {
                 elements: []
             }
