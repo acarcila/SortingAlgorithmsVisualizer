@@ -26,7 +26,7 @@ function merge(array, left, middle, right) {
 
     var i = left;
     var j = middle + 1;
-    if (left == 0 && middle == 4 && right == 9) {
+    if (left === 0 && middle === 4 && right === 9) {
         console.log();
     }
     while (i <= middle && j <= right) {
