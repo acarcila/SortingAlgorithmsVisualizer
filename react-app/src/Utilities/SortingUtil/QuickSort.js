@@ -4,16 +4,15 @@ export default function sort(array, left, right) {
     var newArray = array.slice(0); // prevents pass by reference
     var steps = [];
     if (left < right) {
-        console.log("sort");
         var pivotIndex = right;
-        var pivotValue = parseInt(array[pivotIndex].value);
+        var pivotValue = (array[pivotIndex].value);
 
         var j = left;
         while (j < pivotIndex) {
             var step = {
                 elements: []
             }
-            if (parseInt(newArray[j].value) > parseInt(pivotValue)) {
+            if ((newArray[j].value) > (pivotValue)) {
                 newArray = arrayMove(newArray, j, right);
                 pivotIndex--;
                 step.elements.push({ index: j, newIndex: right });
@@ -34,7 +33,6 @@ export default function sort(array, left, right) {
         const rightArray = sort(newArray, pivotIndex + 1, right);
         newArray = rightArray.newArray;
         steps = steps.concat(rightArray.steps);
-        console.log(steps);
     }
     return { newArray, steps };
 }
