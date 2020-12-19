@@ -4,7 +4,6 @@ import React, {
     forwardRef,
     useImperativeHandle,
     useRef,
-    useCallback,
 } from "react";
 import Styles from "./ArraySortingController.module.sass";
 import ArrayVisualizer from "../ArrayVisualizer/ArrayVisualizer";
@@ -69,16 +68,6 @@ const deactivate = ({ elements }, array) => {
     return newArray;
 };
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-const usePrevious = (value) => {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
-};
-
 const sortingAlgorithms = {
     MERGE_SORT: mergeSort,
     QUICK_SORT: quickSort,
@@ -87,7 +76,6 @@ const sortingAlgorithms = {
 
 const ArraySortingController = forwardRef((props, ref) => {
     const { length, range, isRamp, sortingAlgorithm } = props;
-    const previousProps = usePrevious(props);
     const [array, setArray] = useState([]);
     const [steps, setSteps] = useState([]);
     // const [isPlay, setIsPlay] = useState(false);
@@ -152,8 +140,6 @@ const ArraySortingController = forwardRef((props, ref) => {
     };
 
     const update = () => {
-        console.log("-------", refs.current.flags.isPlay);
-        const arr = refs.current.array;
         const previousStepI = refs.current.previousStepIndex;
         if (refs.current.currentStepIndex !== previousStepI) {
             const newArray = deactivate(refs.current.steps[previousStepI], refs.current.array);
